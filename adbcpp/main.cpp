@@ -47,34 +47,51 @@ int main(int argc, const char * argv[]) {
 //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
     
     string sendevent = "adb shell sendevent /dev/input/event2 ";
+/*
 
-//    cmd(sendevent + "3 39 0");
-//    cmd(sendevent + "3 57 500");
-//    cmd(sendevent + "3 53 10");
-//    cmd(sendevent + "3 54 10");
-//    cmd(sendevent + "3 48 38");
-//    cmd(sendevent + "0 0 0");
-//    cmd(sendevent + "3 39 1");
-//    cmd(sendevent + "3 57 501");
-//    cmd(sendevent + "3 53 100");
-//    cmd(sendevent + "3 53 100");
-//    cmd(sendevent + "0 0 0");
-//    cmd(sendevent + "3 39 0");
-//    cmd(sendevent + "3 53 40");
-//    cmd(sendevent + "3 54 40");
-//    cmd(sendevent + "0 0 0");
-//    cmd(sendevent + "3 39 1");
-//    cmd(sendevent + "3 53 60");
-//    cmd(sendevent + "3 54 60");
-//    cmd(sendevent + "0 0 0");
-//    cmd(sendevent + "3 39 0");
-//    cmd(sendevent + "3	57	4294967295");
-//    cmd(sendevent + "3 39 1");
-//    cmd(sendevent + "3	57	4294967295");
-//    cmd(sendevent + "0 0 0");
+    //첫번째 pointer의 ABS_MT_TRACKING_ID를 1로 설정한다.
+    cmd("adb shell sendevent /dev/input/event2 3 57 461");
+    cmd("adb shell sendevent /dev/input/event2 3 53 100");
+    cmd("adb shell sendevent /dev/input/event2 3 54 100");
+    //ABS_MT_PRESSURE 8정도의 값을 보내서 press 되었다고 알려 줍니다.
+    cmd("adb shell sendevent /dev/input/event2 3 58 8");
+    //한 pointer에 대한 EV_SYN, SYN_REPORT를 보낸다.
+    cmd("adb shell sendevent /dev/input/event2 0 0 0");
     
+    
+    //두번째 pointer 입력 전에 ABS_MT_SLOT을 보낸다.
+    cmd("adb shell sendevent /dev/input/event2 3 47 1");
+    
+    
+    //두번째 pointer
+    //첫번째 pointer의 ABS_MT_TRACKING_ID를 2로 설정한다.
+    cmd("adb shell sendevent /dev/input/event2 3 57 462");
+    cmd("adb shell sendevent /dev/input/event2 3 53 360");
+    cmd("adb shell sendevent /dev/input/event2 3 54 360");
+    cmd("adb shell sendevent /dev/input/event2 3 58 8");
+    cmd("adb shell sendevent /dev/input/event2 0 0 0");
+    
+    
+    //여기서 ABS_MT_POSITION_X(53), ABS_MT_POSITION_Y(54), 그리고 SYN_REPORT를 한 묶음으로 이동하고 싶은 만큼 반복한다.
+    cmd("adb shell sendevent /dev/input/event2 3 53 120");
+    cmd("adb shell sendevent /dev/input/event2 3 54 120");
+    cmd("adb shell sendevent /dev/input/event2 0 0 0");
+    
+    
+    //첫번째 pointer의 ABS_MT_TR두ACKING_ID를 -1을 초기화 한다.
+    cmd("adb shell sendevent /dev/input/event2 3 57 -1");
+    cmd("adb shell sendevent /dev/input/event2 0 0 0");
+    //ABS_MT_SLOT(47)은 0,1로 번갈아 입력된다. 앞에서 1로 보냈으니 0으로 보낸다.
+    cmd("adb shell sendevent /dev/input/event2 3 47 0");
+    //두번째 pointer의 ABS_MT_TRACKING_ID를 -1을 초기화 한다.
+    cmd("adb shell sendevent /dev/input/event2 3 57 -1");
+    cmd("adb shell sendevent /dev/input/event2 0 0 0");
+*/
+
+
     cmd("adb shell input swipe 10 10 10 300");
 
+    
     // 아무데나 클릭
     cmd("adb shell input tap 10 10");
     
@@ -218,10 +235,13 @@ int main(int argc, const char * argv[]) {
     cmd("adb shell input tap 586 144");
     
     
+    // 공격
+    cmd("adb shell input tap 52 410");
+    cmd("adb shell input tap 160 367");
     
     // 아무데나 클릭
-    cmd("adb shell input tap 10 10");
-    
+    //cmd("adb shell input tap 10 10");
+
     std::cout << "GoodBye, World!\n";
     
     return 0;

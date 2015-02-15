@@ -28,7 +28,6 @@ void cmd(string message)
 {
     string command = "/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/" + message;
     system(command.c_str());
-    sleep(1);
 }
 
 int main(int argc, const char * argv[]) {
@@ -47,7 +46,7 @@ int main(int argc, const char * argv[]) {
 //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
     
     string sendevent = "adb shell sendevent /dev/input/event2 ";
-/*
+
 
     //첫번째 pointer의 ABS_MT_TRACKING_ID를 1로 설정한다.
     cmd("adb shell sendevent /dev/input/event2 3 57 461");
@@ -66,16 +65,27 @@ int main(int argc, const char * argv[]) {
     //두번째 pointer
     //첫번째 pointer의 ABS_MT_TRACKING_ID를 2로 설정한다.
     cmd("adb shell sendevent /dev/input/event2 3 57 462");
-    cmd("adb shell sendevent /dev/input/event2 3 53 360");
-    cmd("adb shell sendevent /dev/input/event2 3 54 360");
+    cmd("adb shell sendevent /dev/input/event2 3 53 780");
+    cmd("adb shell sendevent /dev/input/event2 3 54 470");
     cmd("adb shell sendevent /dev/input/event2 3 58 8");
     cmd("adb shell sendevent /dev/input/event2 0 0 0");
     
     
     //여기서 ABS_MT_POSITION_X(53), ABS_MT_POSITION_Y(54), 그리고 SYN_REPORT를 한 묶음으로 이동하고 싶은 만큼 반복한다.
-    cmd("adb shell sendevent /dev/input/event2 3 53 120");
-    cmd("adb shell sendevent /dev/input/event2 3 54 120");
+    cmd("adb shell sendevent /dev/input/event2 3 53 420");
+    cmd("adb shell sendevent /dev/input/event2 3 54 220");
+    cmd("adb shell sendevent /dev/input/event2 3 58 8");
     cmd("adb shell sendevent /dev/input/event2 0 0 0");
+
+    
+    cmd("adb shell sendevent /dev/input/event2 3 57 461");
+    cmd("adb shell sendevent /dev/input/event2 3 53 400");
+    cmd("adb shell sendevent /dev/input/event2 3 54 200");
+    //ABS_MT_PRESSURE 8정도의 값을 보내서 press 되었다고 알려 줍니다.
+    cmd("adb shell sendevent /dev/input/event2 3 58 8");
+    //한 pointer에 대한 EV_SYN, SYN_REPORT를 보낸다.
+    cmd("adb shell sendevent /dev/input/event2 0 0 0");
+    
     
     
     //첫번째 pointer의 ABS_MT_TR두ACKING_ID를 -1을 초기화 한다.
@@ -86,7 +96,6 @@ int main(int argc, const char * argv[]) {
     //두번째 pointer의 ABS_MT_TRACKING_ID를 -1을 초기화 한다.
     cmd("adb shell sendevent /dev/input/event2 3 57 -1");
     cmd("adb shell sendevent /dev/input/event2 0 0 0");
-*/
 
 
     cmd("adb shell input swipe 10 10 10 300");

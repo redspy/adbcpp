@@ -82,14 +82,14 @@ int main(int argc, const char * argv[]) {
     cmd("adb shell input tap 496 159");
     cmd("adb shell input tap 427 181");
     cmd("adb shell input tap 526 195");
-    cmd("adb shell input tap 533 233");
+    cmd("adb shell input tap 363 161");
     cmd("adb shell input tap 620 290");
-    cmd("adb shell input tap 613 343");
+    cmd("adb shell input tap 565 272"); //
     cmd("adb shell input tap 533 345");
     cmd("adb shell input tap 192 246");
     cmd("adb shell input tap 165 340");
     cmd("adb shell input tap 261 337");
-    cmd("adb shell input tap 277 248");
+    cmd("adb shell input tap 236 272"); //
     
     cmd("adb shell input tap 10 10");
     cmd("adb shell input tap 246 394");
@@ -210,6 +210,15 @@ int main(int argc, const char * argv[]) {
 //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
 //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
 
+    
+    // 클랜성 클릭
+    cmd("adb shell input tap 432 267");
+    cmd("adb shell input tap 398 427");
+    cmd("adb shell input tap 570 241");
+    cmd("adb shell input tap 586 144");
+    
+    
+    
     // 아무데나 클릭
     cmd("adb shell input tap 10 10");
     

@@ -18,37 +18,38 @@
 
 using namespace std;
 
-struct Position
+void *thread_function(void *arg)
 {
-    int x;
-    int y;
-};
+    string message = (char*) arg;
+    copy(message.begin(), message.end(), (char*) arg);
+    string command = PATH_OF_ADB + message;
+    system(command.c_str());
+
+    pthread_exit(NULL);
+}
 
 void cmd(string message)
 {
-    string command = "/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/" + message;
+//    int state = 0;
+//    pthread_t t_id;
+    
+//    state = pthread_create(&t_id, NULL, thread_function, (void*) message.c_str());
+    
+    string command = PATH_OF_ADB + message;
     system(command.c_str());
 }
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+void logging(string message)
+{
+    cout << message << endl;
+//    sleep(1);
+}
 
-    // 혹시모를 종료 클릭
-//    cmd("adb shell input tap 721 48");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	412");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	443");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	721");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-    
-    string sendevent = "adb shell sendevent /dev/input/event2 ";
-
-
+void PosionInitialize()
+{
     //첫번째 pointer의 ABS_MT_TRACKING_ID를 1로 설정한다.
+    
+    logging("화면 축소");
     cmd("adb shell sendevent /dev/input/event2 3 57 461");
     cmd("adb shell sendevent /dev/input/event2 3 53 100");
     cmd("adb shell sendevent /dev/input/event2 3 54 100");
@@ -76,7 +77,7 @@ int main(int argc, const char * argv[]) {
     cmd("adb shell sendevent /dev/input/event2 3 54 220");
     cmd("adb shell sendevent /dev/input/event2 3 58 8");
     cmd("adb shell sendevent /dev/input/event2 0 0 0");
-
+    
     
     cmd("adb shell sendevent /dev/input/event2 3 57 461");
     cmd("adb shell sendevent /dev/input/event2 3 53 400");
@@ -96,103 +97,84 @@ int main(int argc, const char * argv[]) {
     //두번째 pointer의 ABS_MT_TRACKING_ID를 -1을 초기화 한다.
     cmd("adb shell sendevent /dev/input/event2 3 57 -1");
     cmd("adb shell sendevent /dev/input/event2 0 0 0");
-
-
+    
+    
     cmd("adb shell input swipe 10 10 10 300");
-
     
     // 아무데나 클릭
+    logging("아무대나 클릭");
     cmd("adb shell input tap 10 10");
-    
+
+}
+
+void GetResources()
+{
     // 자원 걷기
-    cmd("adb shell input tap 496 159");
-    cmd("adb shell input tap 427 181");
-    cmd("adb shell input tap 526 195");
-    cmd("adb shell input tap 363 161");
-    cmd("adb shell input tap 620 290");
-    cmd("adb shell input tap 565 272"); //
-    cmd("adb shell input tap 533 345");
-    cmd("adb shell input tap 192 246");
-    cmd("adb shell input tap 165 340");
-    cmd("adb shell input tap 261 337");
-    cmd("adb shell input tap 236 272"); //
     
-    cmd("adb shell input tap 10 10");
-    cmd("adb shell input tap 246 394");
-    cmd("adb shell input tap 10 10");
-    cmd("adb shell input tap 281 425");
-    cmd("adb shell input tap 10 10");
-    cmd("adb shell input tap 323 459");
-    cmd("adb shell input tap 10 10");
+    logging("자원1");
+    cmd("adb shell input tap 365 174");
     
+    logging("자원2");
+    cmd("adb shell input tap 439 174");
+    
+    logging("자원3");
+    cmd("adb shell input tap 220 300");
+    
+    logging("자원4");
+    cmd("adb shell input tap 264 337");
+    
+    logging("자원5");
+    cmd("adb shell input tap 576 294");
+    
+    logging("자원6");
+    cmd("adb shell input tap 530 340"); //
+    
+    
+    logging("자원7");
+    cmd("adb shell input tap 484 154");
+    
+    logging("자원8");
+    cmd("adb shell input tap 215 234");
+    
+    logging("자원9");
+    cmd("adb shell input tap 181 270");
+    
+    logging("자원10");
+    cmd("adb shell input tap 217 345");
+    
+    logging("자원11");
+    cmd("adb shell input tap 627 260"); //
+    
+    logging("자원12");
+    //    cmd("adb shell input tap 10 10");
+    cmd("adb shell input tap 624 321");
+    
+    logging("자원13");
+    //    cmd("adb shell input tap 10 10");
+    cmd("adb shell input tap 560 255");
+    
+    logging("자원14");
+    //    cmd("adb shell input tap 10 10");
+    cmd("adb shell input tap 238 257");
+    //    cmd("adb shell input tap 10 10");
+
+}
+
+void MakeUnit()
+{
     // 훈련소 클릭
-    cmd("adb shell input tap 572 220");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	407");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	572");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	220");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
+    
+    logging("훈련소 클릭");
+    cmd("adb shell input tap 550 196");
 
     // 훈련 클릭
+    
+    logging("훈련 클릭");
     cmd("adb shell input tap 536 420");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	408");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	536");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	420");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-
     
     // 바바리안 롱클릭
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	409");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	252");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	174");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
-    sleep(SLEEP_COUNT);
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-
-    // 다음 훈련소 클릭
-    cmd("adb shell input tap 43 253");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	410");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	43");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	253");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-
-    // 아처 롱클릭
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	411");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	239");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	289");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
-    sleep(SLEEP_COUNT);
-    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-
-    // 다음 훈련소 클릭
-    cmd("adb shell input tap 43 253");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	410");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	43");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	253");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-
-    // 바바리안 롱클릭
+    
+    logging("바바리안 뽑기");
     system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	409");
     system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	252");
     system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	174");
@@ -205,16 +187,10 @@ int main(int argc, const char * argv[]) {
     
     // 다음 훈련소 클릭
     cmd("adb shell input tap 43 253");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	410");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	43");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	253");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
-    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
     
     // 아처 롱클릭
+    
+    logging("아쳐 뽑기");
     system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	411");
     system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	239");
     system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	289");
@@ -224,20 +200,58 @@ int main(int argc, const char * argv[]) {
     system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
     sleep(SLEEP_COUNT);
     system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-
+    
+    // 다음 훈련소 클릭
+    cmd("adb shell input tap 43 253");
+    
+    // 바바리안 롱클릭
+    //    logging("바바리안 뽑기");
+    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	409");
+    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	252");
+    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	174");
+    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
+    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
+    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
+    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
+    //    sleep(SLEEP_COUNT);
+    //    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
+    
+    // 다음 훈련소 클릭
+    //    cmd("adb shell input tap 43 253");
+    
+    // 아처 롱클릭
+    
+    logging("아쳐 뽑기");
+    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	411");
+    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	239");
+    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	289");
+    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
+    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
+    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
+    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
+    sleep(SLEEP_COUNT);
+    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
+    
     // 종료 클릭
     cmd("adb shell input tap 721 48");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	412");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	53	443");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	54	721");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	48	43");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	58	5");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	3	57	4294967295");
-//    system("/Users/utoxiz/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platform-tools/adb shell sendevent	/dev/input/event2	0	0	0");
+}
 
+
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Start!!!\n";
+
+    PosionInitialize();
+    
+    while(1)
+    {
+        GetResources();
+        MakeUnit();
+        sleep(120);
+    }
     
     // 클랜성 클릭
+    logging("클랜 유닛 요청");
     cmd("adb shell input tap 432 267");
     cmd("adb shell input tap 398 427");
     cmd("adb shell input tap 570 241");
@@ -247,7 +261,7 @@ int main(int argc, const char * argv[]) {
     // 공격
     cmd("adb shell input tap 52 410");
     cmd("adb shell input tap 160 367");
-    
+
     // 아무데나 클릭
     //cmd("adb shell input tap 10 10");
 
